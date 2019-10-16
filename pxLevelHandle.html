@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1px solid silver;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvasa" width="400" height="280" style="float: left;">
+        您的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvasb"width="400" height="280" style="float: right;">
+            您的浏览器不支持canvas
+    </canvas>
+
+    <div style="clear: both"></div>
+
+    <div style="text-align: center; margin-top: 50px; font-size:20px;">
+        <a href="javascript: greyEffect();">GreyEffect</a>
+        <a href="javascript: blackEffect();">blackEffect</a>
+        <a href="javascript: reverseEffect();">reverseEffect</a>
+        <a href="javascript: blurEffect();">blurEffect</a>
+        <a href="javascript: mosaicEffect();">mosaicEffect</a>
+    </div>
+
+    <script>
+         var canvasa = document.getElementById('canvasa');
+         var contexta = canvasa.getContext('2d');
+
+         var canvasb = document.getElementById('canvasb');
+         var contextb = canvasb.getContext('2d');
+
+         var image = new Image();
+
+         window.onload = function() {
+             image.src = './img.jpg';
+             image.onload = function() {
+                 contexta.drawImage(image, 0, 0, canvasa.width, canvasa.height);
+
+             }
+         }
+
+         function greyEffect() {
+             // 获取图片数据
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            var pixelData = imageData.data
+
+            for(var i = 0; i < canvasa.width * canvasa.height; i++) {
+                
+                var r = pixelData[i*4+0];
+                var g = pixelData[i*4+1];
+                var b = pixelData[i*4+2];
+
+                var grey = r*0.3 + g*0.59 + b*0.11;
+                
+                pixelData[4*i+0] = grey;
+                pixelData[4*i+1] = grey;
+                pixelData[4*i+2] = grey;
+            }
+
+            // 把获取到的图片数据填充到canvasb
+            contextb.putImageData(imageData, 0, 0, 0, 0, canvasb.width, canvasb.height)
+            
+         }
+
+         function blackEffect() {
+             // 获取图片数据
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            var pixelData = imageData.data;
+            var v = 0;
+
+            for(var i = 0; i < canvasa.width * canvasa.height; i++) {
+                
+                var r = pixelData[i*4+0];
+                var g = pixelData[i*4+1];
+                var b = pixelData[i*4+2];
+
+                var grey = r*0.3 + g*0.59 + b*0.11;
+                if(grey > 255 / 2) {
+                    v = 255;
+                }else {
+                    v = 0;
+                }
+                
+                pixelData[4*i+0] = v;
+                pixelData[4*i+1] = v;
+                pixelData[4*i+2] = v;
+            }
+
+            // 把获取到的图片数据填充到canvasb
+            contextb.putImageData(imageData, 0, 0, 0, 0, canvasb.width, canvasb.height)
+            
+         }
+
+         // 反色滤镜
+         function reverseEffect() {
+             // 获取图片数据
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            var pixelData = imageData.data;
+            var v = 0;
+
+            for(var i = 0; i < canvasa.width * canvasa.height; i++) {
+                
+                var r = pixelData[i*4+0];
+                var g = pixelData[i*4+1];
+                var b = pixelData[i*4+2];
+
+                
+                pixelData[4*i+0] = 255 - r;
+                pixelData[4*i+1] = 255 - g;
+                pixelData[4*i+2] = 255 - b;
+            }
+
+            // 把获取到的图片数据填充到canvasb
+            contextb.putImageData(imageData, 0, 0, 0, 0, canvasb.width, canvasb.height)
+            
+         }
+
+         
+         // 模糊滤镜
+         function blurEffect() {
+             // 获取图片数据
+            var imageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            var pixelData = imageData.data;
+            // 参考的图片数据
+            var tmpImageData = contexta.getImageData(0, 0, canvasa.width, canvasa.height);
+            var tmpPixelData = imageData.data;
+
+            var blurR = 3;
+            var totalnum = (2*blurR + 1)*(2*blurR + 1);
+            for(var i = blurR; i < canvasa.height - blurR; i++) {
+                for(var j = blurR; j < canvasb.width - 1; j++) {
+
+                    var totalr = 0, totalg = 0, totalb = 0;
+                    for(var dx = -blurR; dx <= blurR; dx ++) {
+                        for(var dy = -blurR; dy <= blurR; dy ++) {
+                            var x = i + dx;
+                            var y = j + dy;
+ 
+                            var p = x*canvasb.width + y;
+                            totalr += tmpPixelData[p*4+0];
+                            totalg += tmpPixelData[p*4+1];
+                            totalb += tmpPixelData[p*4+2];
+
+                        }
+                    }
+
+                    var p = i*canvasb.width + j;
+                   
+                    pixelData[p*4+0] = totalr / totalnum;
+                    pixelData[p*4+1] = totalg / totalnum;
+                    pixelData[p*4+2] = totalb / totalnum;
+                }
+            }
+
+            // 把获取到的图片数据填充到canvasb
+            contextb.putImageData(imageData, 0, 0, 0, 0, canvasb.width, canvasb.height)
+            
+         }
+
+         mosaicEffect
+    </script>
+</body>
+</html>
