@@ -13,6 +13,13 @@
   </body>
 
   <script>
+      /**
+       * lineJoin 两条线接洽的地方的样式
+       *   miter (default)
+       *   bevel
+       *   round 
+       * miterLimit 默认为 10， 超过这个值就变成了babel的样式。
+       */
     window.onload = function() {
         var canvas = document.getElementById("canvas");
             canvas.width = 800;
@@ -20,8 +27,9 @@
 
             var context = canvas.getContext("2d");
             // 使用context绘制
-
+             
             context.lineWidth = 10;
+            // context.lineJoin = 'round';
             drawStar(context, 150, 300, 400, 400)
             
     }
