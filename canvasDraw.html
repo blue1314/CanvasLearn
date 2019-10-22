@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+  <canvas width="" height="" id="canvas" style="display: block; margin: 0 auto;border:1px solid #aaa" >
+      您的浏览器不支持canvas，请使用更高版本的浏览器。
+  </canvas>
+    
+</body>
+
+<script>
+    
+
+    window.onload = function(){
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        canvas.width = 400;
+        canvas.height = 400;
+        // 一次绘制的开始
+        context.beginPath();
+
+        // 开始笔画的位置
+        context.moveTo(100,100)
+        // 图形的各个顶点
+        context.lineTo(200,200)
+        context.lineTo(20,80);
+        context.lineTo(100,100);
+        context.closePath();
+        // 笔画的宽度
+        context.lineWidth = 5;
+        // 笔画的颜色
+        context.strokeStyle = '#005588'
+        // 图形的填充色
+        // context.fillStyle = 'rgb(2,100,30)';
+        // context.fill();
+        // 真正绘图
+        context.stroke();
+
+        
+        context.beginPath();
+        context.moveTo(300,300);
+        context.lineTo(400,400);
+        context.lineTo(200,400)
+        context.closePath();
+        context.strokeStyle = 'yellow';
+        context.stroke();
+        
+    }
+</script>
+</html>
