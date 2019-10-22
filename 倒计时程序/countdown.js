@@ -18,7 +18,8 @@ const colors = [
     "#ff8800",
 ]
 
-const endTime = new Date(2019,9,22,18,0,0);
+var endTime = new Date();
+endTime.setTime(endTime.getTime() + 3600 * 1000);
 var curShowTimeSeconds = 0;
 
 window.onload = function(){

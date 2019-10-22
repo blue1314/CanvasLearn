@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <canvas id="canvas">
+        你的浏览器不支持canvas
+    </canvas>
+    
+    <script>
+
+        /**
+         * beginPath ≈ moveTo
+         * lineTo
+         * moveTo
+         * stroke
+         * strokeStyle
+         * fillStyle
+         * fill
+         * 
+         * 
+         * /
+
+        window.onload = function(){
+            var canvas = document.getElementById('canvas');
+            canvas.width = 400;
+            canvas.height = 400;
+
+
+            var context = canvas.getContext('2d');
+            context.moveTo(100,100);
+            context.lineTo(100,300);
+            context.lineTo(400,300);
+            context.lineTo(100,100);
+
+            // context.strokeStyle = 'red';
+            // 线条宽度
+            context.lineWidth = 10;
+            // 填充样式
+            context.fillStyle = 'blue';
+            // 填充
+            context.fill();
+            context.stroke()
+            // context.beginPath();
+            // 绘制线段
+            context.moveTo(100,100);
+            context.lineTo(300,100);
+            context.lineTo(300,400);
+            context.lineTo(100,100);
+            context.fillStyle = 'yellow';
+            // 填充
+            context.fill();
+            context.strokeStyle = 'green'
+            context.stroke();
+        }
+    </script>
+</body>
+</html>
