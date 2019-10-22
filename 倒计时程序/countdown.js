@@ -1,10 +1,10 @@
-var WINDOW_WIDTH = 1024;
-var WINDOW_HEIGHT = 765; 
+var WINDOW_WIDTH = document.body.clientWidth;
+var WINDOW_HEIGHT = document.body.clientHeight; 
 // 时钟点的半径
-var RADIUS = 8;
+var RADIUS = Math.round(WINDOW_WIDTH * 4 / 5 / 108) - 1;
 
-var MARGIN_TOP = 60;
-var MARGIN_LEFT = 30;
+var MARGIN_TOP = Math.round(WINDOW_HEIGHT / 5);
+var MARGIN_LEFT = Math.round(WINDOW_WIDTH/10);
 
 var balls = [];
 const colors = [
@@ -86,6 +86,18 @@ function updateBalls() {
             balls[i].y = WINDOW_HEIGHT-RADIUS;
             balls[i].vy = -balls[i].vy*0.5;
         }
+    }
+
+    // 删除越界的小球
+    var cnt = 0;
+    for(var i = 0; i < balls.length; i++) {
+        if(balls[i].x + RADIUS > 0 && balls[i].x - RADIUS < WINDOW_WIDTH) {
+            balls[cnt++] = balls[i];
+        }
+    }
+
+    while(balls.length > Math.min(300,cnt)) {
+        balls.pop();
     }
 }
 
