@@ -48,7 +48,6 @@ function update() {
     var curHours = parseInt(curShowTimeSeconds / 3600);
     var curMinutes = parseInt((curShowTimeSeconds - curHours * 3600) / 60);
     var curSeconds = curShowTimeSeconds % 60;
-
     if(nextSeconds !== curSeconds) {
         if(parseInt(curHours/10) != parseInt(nextHours/10)) {
             addBalls(MARGIN_LEFT + 0, MARGIN_TOP, parseInt(curHours/10));
@@ -57,17 +56,17 @@ function update() {
             addBalls(MARGIN_LEFT + 15*(RADIUS+1), MARGIN_TOP, parseInt(curHours%10));
         }
 
-        if(parseInt(curMinutes/10) != parseInt(curMinutes/10)) {
+        if(parseInt(curMinutes/10) != parseInt(nextMinutes/10)) {
             addBalls(MARGIN_LEFT + 39*(RADIUS+1), MARGIN_TOP, parseInt(curMinutes/10));
         }
-        if(parseInt(curMinutes%10) != parseInt(curMinutes%10)) {
+        if(parseInt(curMinutes%10) != parseInt(nextMinutes%10)) {
             addBalls(MARGIN_LEFT + 54*(RADIUS+1), MARGIN_TOP, parseInt(curMinutes%10));
         }
 
-        if(parseInt(curSeconds/10) != parseInt(curSeconds/10)) {
+        if(parseInt(curSeconds/10) != parseInt(nextSeconds/10)) {
             addBalls(MARGIN_LEFT + 78*(RADIUS+1), MARGIN_TOP, parseInt(curSeconds/10));
         }
-        if(parseInt(curSeconds%10) != parseInt(curSeconds%10)) {
+        if(parseInt(curSeconds%10) != parseInt(nextSeconds%10)) {
             addBalls(MARGIN_LEFT + 93*(RADIUS+1), MARGIN_TOP, parseInt(curSeconds%10));
         }
 
@@ -81,11 +80,11 @@ function updateBalls() {
     for(var i = 0; i < balls.length; i++) {
         balls[i].x += balls[i].vx;
         balls[i].y += balls[i].vy;
-        balls[i].vx += balls[i].g;
+        balls[i].vy += balls[i].g;
 
         if(balls[i].y >= WINDOW_HEIGHT-RADIUS) {
             balls[i].y = WINDOW_HEIGHT-RADIUS;
-            balls[i].vy = -balls[i].vy*0.75;
+            balls[i].vy = -balls[i].vy*0.5;
         }
     }
 }
@@ -98,7 +97,7 @@ function addBalls(x, y, num) {
                     x: x+j*2*(RADIUS+1)+(RADIUS+1),
                     y: y+i*2*(RADIUS+1)+(RADIUS+1),
                     g: 1.5+Math.random(),
-                    vx:Math.pow(-1, Math.cell(Math.random()*1000)) * 4,
+                    vx:Math.pow(-1, Math.ceil(Math.random()*1000)) * 4,
                     vy: -5,
                     color: colors[Math.floor(Math.random()*colors.length)]
                 }
