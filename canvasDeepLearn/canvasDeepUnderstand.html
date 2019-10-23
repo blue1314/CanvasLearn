@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas">
+      你的浏览器不支持canvas
+    </canvas>
+    <script>
+      /**
+        *  a c e
+        *  b d f
+        *  0 0 1
+        *  
+           a - 水平缩放 1
+           b - 水平倾斜 0
+           c - 垂直倾斜 0
+           d - 垂直缩放 1
+           e - 水平位移 0
+           f - 垂直位移 0
+        *
+        */
+
+      // transform(a, b, c, d, e, f)
+
+      window.onload = function() {
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = 800;
+        canvas.height = 800;
+
+        var context = canvas.getContext("2d");
+        context.fillStyle = "blue";
+        context.strokeStyle = "#058";
+        context.lineWidth = 5;
+
+        context.save();
+        context.transform(1, 2, 0, 1, 200, 200);
+        // 使用了setTransform后 前面使用到的transform都无效
+        context.setTransform(1, 0, 0, 1, 100, 100);
+
+        context.fillRect(50, 50, 300, 300);
+        context.strokeRect(50, 50, 300, 300);
+        context.restore();
+      };
+    </script>
+  </body>
+</html>
