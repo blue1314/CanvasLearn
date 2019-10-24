@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas">
+      你的浏览器不支持canvas
+    </canvas>
+
+      <script>
+        
+        window.onload = function() {
+            var canvas = document.getElementById("canvas");
+            canvas.width = 800;
+            canvas.height = 800;
+
+            var context = canvas.getContext("2d");
+               
+              
+              drawMoon(context, 400, 200, 400, 600, 1200, 400, 200 );
+              context.rotate(120*Math.PI/180);
+        }
+        
+        // x1,y1 起始点，x2,y2 结束点  x3,y3 月亮的规定点 r 外侧原的半径
+        function drawMoon( context, x1, y1, x2, y2, x3, y3, r){
+                context.save();
+                context.arc(400, 400, r, Math.PI * 0.5,Math.PI * 1.5, true)
+                context.moveTo(x1, y1);
+                context.arcTo(x3, y3, x2, y2, r * dis(r,x3 - x1) / (x3 - x1));
+                context.stroke();
+                context.restore();
+        }
+
+        function dis(x, y){
+          return Math.sqrt(x*x + y*y);
+        }
+        
+      </script>
+  </body>
+</html>
