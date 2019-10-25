@@ -36,6 +36,9 @@
         // quadraticCurveToFn2(context);
         // 三次贝塞尔曲线
         quadraticCurveToFn3(context);
+
+        // 添加文字
+        drawTxt(context);
         
       };
 
@@ -139,6 +142,21 @@
           ctx.restore();
        }
       /* ----- 三次贝塞尔曲线----------end---*/
+
+      function drawTxt(cxt) {
+        cxt.beginPath()
+        var width = cxt.measureText('blue you are the best').width;
+        var landStyle = cxt.createLinearGradient(500, 760, width+500, 760 );
+        landStyle.addColorStop(0.0, 'yellow');
+        landStyle.addColorStop(0.25, 'red');
+        landStyle.addColorStop(0.5, 'blue');
+        landStyle.addColorStop(0.75, 'orange');
+        landStyle.addColorStop(1.0, 'green');
+        cxt.fillStyle = landStyle;
+        cxt.font = 'bold 50px sans-serif';
+        cxt.fillText('blue you are the best', 500, 760);
+        cxt.closePath();
+      }
     </script>
   </body>
 </html>

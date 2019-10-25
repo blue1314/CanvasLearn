@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <canvas id="canvas">
+        你的浏览器不支持canvas
+    </canvas>
+    
+    
+</body>
+<!-- <script>
+        // context.fillText(string, x, y);
+
+        /*
+          font-style: normal
+                      italic 斜体字
+                      oblique 倾斜字体
+          font-variant: normal
+                        small-caps
+          font-weight: lighter
+                       normal
+                       bold
+                       bolder
+
+          textAlign: center
+                     left
+                     right
+
+          context.textBaseLine = top
+                                 middle
+                                 bottom
+                                 alphabetic
+                                 ideographic
+                                 hanging
+
+        */
+
+       window.onload = function(){
+        var canvas = document.getElementById('canvas');
+            canvas.width = 800;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+                context.font = 'bold 40px Arial';
+                context.fillStyle = '#058';
+                context.fillText("欢迎大家学习canvas", 40, 100);
+
+                context.lineWidth = 1;
+                context.strokeStyle = '#058';
+                context.strokeText('欢迎学习canvas', 40, 300);
+
+                var lineGrad = context.createLinearGradient(0, 0, 800, 0);
+                lineGrad.addColorStop(0.0, 'red');
+                lineGrad.addColorStop(0.25, 'orange');
+                lineGrad.addColorStop(0.5, 'yellow');
+                lineGrad.addColorStop(0.75, 'green');
+                lineGrad.addColorStop(1.0, 'purple');
+                context.fillStyle = lineGrad;
+                context.fillText('欢迎大家学习canvas',40 ,600);
+       }
+
+       
+        
+
+     </script> -->
+
+     <script>
+     // 文本的度量 context.measureText(string).width
+     window.onload = function(){
+        var canvas = document.getElementById('canvas');
+            canvas.width = 800;
+            canvas.height = 800;
+
+            var context = canvas.getContext('2d');
+             context.fillStyle = '#058';
+             context.font = 'bold 40px sans-serif';
+             context.fillText('...>...>...。。。。。88欢迎大家学习canvas绘图接口详解', 40, 100);
+
+             var textWidth = context.measureText('欢迎学。。....7777jljlfj习canv333as绘图详解').width;
+             context.fillText('以上字符串的宽度为' + textWidth + 'px', 40, 200)
+       }
+
+     </script>
+</html>
